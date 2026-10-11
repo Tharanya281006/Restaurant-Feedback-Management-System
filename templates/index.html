@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Feedback Management System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <header class="hero">
+        <h1>🍽️ Restaurant Feedback Management</h1>
+        <p>Share your dining experience and help us serve you better.</p>
+        <div class="nav-buttons">
+            <button class="nav-button active" data-view="feedback">Give Feedback</button>
+            <button class="nav-button" data-view="all-feedback">Show All Feedback</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="feedback-view" class="panel">
+            <h2>Tell Us About Your Visit</h2>
+            <p class="muted">Your feedback is saved securely on this system and remains available after restarting the application.</p>
+            <div id="message" class="message" hidden></div>
+
+            <form id="feedback-form">
+                <div id="identity-fields">
+                    <div class="grid-2">
+                        <div>
+                            <label for="name">Customer Name *</label>
+                            <input id="name" name="name" type="text" placeholder="Enter your name" required>
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="Enter your email">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="mobile">Mobile</label>
+                        <input id="mobile" name="mobile" type="tel" placeholder="Enter your mobile number">
+                    </div>
+                </div>
+
+                <label for="visit-date">Visit Date</label>
+                <input id="visit-date" name="visitDate" type="date">
+
+                <label>Rate Each Area</label>
+                <div class="category-ratings">
+                    <div class="category-rating"><label for="food-rating">Food Quality</label><select id="food-rating" name="foodRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                    <div class="category-rating"><label for="service-rating">Service Speed</label><select id="service-rating" name="serviceRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                    <div class="category-rating"><label for="staff-rating">Staff Behaviour</label><select id="staff-rating" name="staffRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                    <div class="category-rating"><label for="cleanliness-rating">Cleanliness</label><select id="cleanliness-rating" name="cleanlinessRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                    <div class="category-rating"><label for="ambience-rating">Ambience</label><select id="ambience-rating" name="ambienceRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                    <div class="category-rating"><label for="value-rating">Value for Money</label><select id="value-rating" name="valueRating" required><option value="">Choose rating</option><option value="5">5 - Excellent</option><option value="4">4 - Very good</option><option value="3">3 - Good</option><option value="2">2 - Fair</option><option value="1">1 - Poor</option></select></div>
+                </div>
+
+                <label>Overall Rating</label>
+                <div class="overall-rating" id="rating-buttons" role="radiogroup" aria-label="Overall rating">
+                    <input class="star-input" type="radio" id="overall-1" name="overall-star" value="1">
+                    <label class="star-choice" for="overall-1" aria-label="1 star" title="1 star">★</label>
+                    <input class="star-input" type="radio" id="overall-2" name="overall-star" value="2">
+                    <label class="star-choice" for="overall-2" aria-label="2 stars" title="2 stars">★</label>
+                    <input class="star-input" type="radio" id="overall-3" name="overall-star" value="3">
+                    <label class="star-choice" for="overall-3" aria-label="3 stars" title="3 stars">★</label>
+                    <input class="star-input" type="radio" id="overall-4" name="overall-star" value="4">
+                    <label class="star-choice" for="overall-4" aria-label="4 stars" title="4 stars">★</label>
+                    <input class="star-input" type="radio" id="overall-5" name="overall-star" value="5">
+                    <label class="star-choice" for="overall-5" aria-label="5 stars" title="5 stars">★</label>
+                </div>
+                <input type="hidden" id="rating" name="rating" value="">
+                <p id="rating-label" class="rating-label">Select a rating</p>
+
+                <label for="comment">Your Feedback / Suggestions</label>
+                <textarea id="comment" name="comment" maxlength="1200" placeholder="Tell us about the food, service, or your overall experience..."></textarea>
+                <div class="char-count"><span id="character-count">0</span> / 1,200</div>
+
+                <button class="primary-button" type="submit">Submit Feedback</button>
+            </form>
+        </section>
+
+        <section id="all-feedback-view" class="panel" hidden>
+            <div class="section-heading">
+                <div>
+                    <h2>All Feedback</h2>
+                    <p class="muted">Browse and analyse every submitted restaurant review.</p>
+                </div>
+                <button id="refresh-feedback" class="secondary-button" type="button">Refresh</button>
+            </div>
+
+            <div class="table-tools">
+                <input id="search-feedback" type="search" placeholder="Search customer, email or feedback...">
+                <span id="feedback-count" class="count-badge">0 feedback</span>
+            </div>
+
+            <div class="table-wrap">
+                <table id="feedback-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Food</th>
+                        <th>Service</th>
+                        <th>Staff</th>
+                        <th>Cleanliness</th>
+                        <th>Ambience</th>
+                        <th>Value</th>
+                        <th>Overall</th>
+                        <th>Feedback</th>
+                        <th>Visit Date</th>
+                        <th>Submitted</th>
+                    </tr>
+                    </thead>
+                    <tbody id="feedback-body"></tbody>
+                </table>
+                <div id="table-empty" class="empty-state">No feedback submitted yet.</div>
+            </div>
+            <div id="pagination" class="pagination"></div>
+        </section>
+    </main>
+</div>
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>
